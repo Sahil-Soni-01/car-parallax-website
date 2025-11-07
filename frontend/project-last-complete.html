@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sports Car Parallax Website</title>
+<style>
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
+    background: #f4f4f4;
+    color: #222;
+    min-height: 100vh;
+    padding-top: 70px; /* for nav fixed height */
+    transition: background 0.6s, color 0.6s;
+  }
+  /* Navbar */
+  nav {
+    position: fixed; top: 0; left: 0; width: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(5px);
+    display: flex; justify-content: space-between;
+    padding: 1rem 3rem; z-index: 9999; align-items: center;
+    transition: background 0.6s;
+  }
+  nav h2 {
+    color: #f88f00;
+    font-size: 2rem;
+    letter-spacing: 2px;
+    transition: color 0.6s;
+  }
+  nav .nav-links {
+    display: flex; align-items: center;
+  }
+  nav a {
+    color: white; text-decoration: none;
+    margin: 0 1rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+    position: relative;
+    transition: color 0.6s;
+  }
+  nav a::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background: #f88f00;
+    transition: width 0.3s;
+  }
+  nav a:hover::after {
+    width: 100%;
+  }
+  /* Dark mode toggle button styling */
+  #darkToggleBtn {
+    background-color: #f88f00;
+    color: #fff;
+    padding: 0.5rem 1.2rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    margin-left: 1rem;
+    user-select: none;
+    border: none;
+    transition: background-color 0.3s;
+  }
+  #darkToggleBtn:hover {
+    background-color: #ffaa33;
+  }
+  /* Sections styles for parallax effect */
+  section.parallax {
+    height: 100vh;
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+  /* Overlay text box */
+  .text-overlay {
+    background: rgba(0,0,0,0.45);
+    padding: 2rem 3rem;
+    border-radius: 15px;
+    font-size: 3rem;
+    color: #fff;
+    text-shadow: 0 0 10px #f88f00;
+    transition: transform 0.3s ease, text-shadow 0.3s ease, background 0.6s;
+  }
+  .text-overlay:hover {
+    transform: scale(1.05);
+    text-shadow: 0 0 20px orange;
+  }
+  /* Content sections styles */
+  .content {
+    padding: 5rem 10rem;
+    background: #fff;
+    color: #222;
+    text-align: center;
+    border-radius: 12px;
+    margin: 3rem auto;
+    max-width: 900px;
+    box-shadow: 0 6px 25px rgba(0,0,0,0.1);
+    opacity: 1;
+    transition: all 0.3s ease;
+  }
+  .content h2 {
+    font-size: 3rem;
+    margin-bottom: 2rem;
+    color: #f88f00;
+    transition: color 0.6s;
+  }
+  .content p {
+    font-size: 1.6rem;
+    line-height: 1.9;
+  }
+  /* Car card styling */
+  .cars-grid {
+    max-width: 1400px;
+    margin: 0 auto 4rem;
+    padding: 0 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2.5rem;
+  }
+  .car-card {
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s, background 0.6s;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+  }
+  .car-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(248, 143, 0, 0.3);
+  }
+  .car-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+  }
+  .car-info {
+    padding: 1.5rem;
+    flex-grow: 1;
+  }
+  .car-brand {
+    color: #f88f00;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: color 0.6s;
+  }
+  .car-name {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 0.5rem 0;
+    color: #222;
+    transition: color 0.6s;
+  }
+  .car-specs {
+    display: flex;
+    gap: 1.5rem;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+    color: #666;
+    transition: color 0.6s;
+  }
+  .car-price {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #f88f00;
+    margin: 1rem 0;
+  }
+  .buy-btn {
+    margin: 0 1.5rem 1rem 1.5rem;
+    padding: 0.8rem;
+    text-align: center;
+    border: none;
+    border-radius: 10px;
+    background: #f88f00;
+    color: white;
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.3s;
+    display: block;
+  }
+  .buy-btn:hover {
+    background: #ff6b00;
+  }
+  /* Login section styles */
+  .login-container {
+    max-width: 450px;
+    margin: 3rem auto 6rem;
+    padding: 2rem;
+  }
+  .login-box {
+    background: #fff;
+    padding: 3rem;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    transition: background 0.6s, box-shadow 0.6s, color 0.6s;
+  }
+  .login-box h2 {
+    color: #f88f00;
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    text-align: center;
+    transition: color 0.6s;
+  }
+  .login-box p {
+    text-align: center;
+    color: #666;
+    margin-bottom: 2rem;
+    transition: color 0.6s;
+  }
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #333;
+    transition: color 0.6s;
+  }
+  .form-group input {
+    width: 100%;
+    padding: 0.9rem;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    font-size: 1rem;
+    background: #f9f9f9;
+    transition: background 0.6s, border-color 0.6s, color 0.6s;
+  }
+  .form-group input:focus {
+    outline: none;
+    border-color: #f88f00;
+    box-shadow: 0 0 0 3px rgba(248, 143, 0, 0.1);
+  }
+  .login-btn {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, #f88f00 0%, #ff6b00 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .login-btn:hover {
+    background: #ff6b00;
+  }
+  .divider {
+    text-align: center;
+    margin: 1.5rem 0;
+    color: #999;
+    transition: color 0.6s;
+  }
+  .social-login {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  .social-btn {
+    flex: 1;
+    padding: 0.8rem;
+    border: 2px solid #ddd;
+    background: white;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.6s, border-color 0.6s, color 0.6s;
+  }
+  .social-btn:hover {
+    border-color: #f88f00;
+  }
+  /* Back To Top Button */
+  #toTopBtn {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    background: #f88f00;
+    color: white;
+    border: none;
+    padding: 1rem 1.2rem;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+    display: block; /* Always visible */
+    text-decoration: none;
+    text-align: center;
+    transition: background 0.3s;
+  }
+  #toTopBtn:hover {
+    background: #ffaa33;
+  }
+  /* Dark Mode Styles */
+  body.dark-mode {
+    background: #121212;
+    color: #eee;
+  }
+  body.dark-mode nav {
+    background: rgba(18, 18, 18, 0.85);
+    backdrop-filter: blur(8px);
+  }
+  body.dark-mode nav h2 {
+    color: #ffb347;
+  }
+  body.dark-mode nav a {
+    color: #ddd;
+  }
+  body.dark-mode .content {
+    background: #1e1e1e;
+    color: #eee;
+    box-shadow: 0 6px 25px rgba(255,136,0,0.5);
+  }
+  body.dark-mode .content h2 {
+    color: #f88f00;
+  }
+  body.dark-mode .car-card {
+    background: #1e1e1e;
+    box-shadow: 0 10px 30px rgba(248, 143, 0, 0.25);
+  }
+  body.dark-mode .car-name {
+    color: #fff;
+  }
+  body.dark-mode .car-specs {
+    color: #ccc;
+  }
+  body.dark-mode .car-brand {
+    color: #f88f00;
+  }
+  body.dark-mode .login-box {
+    background: #222;
+    box-shadow: 0 20px 60px rgba(248, 143, 0, 0.3);
+    color: #eee;
+  }
+  body.dark-mode .login-box h2 {
+    color: #f88f00;
+  }
+  body.dark-mode .login-box p {
+    color: #aaa;
+  }
+  body.dark-mode .form-group label {
+    color: #eee;
+  }
+  body.dark-mode .form-group input {
+    background: #333;
+    border-color: #666;
+    color: #eee;
+  }
+  body.dark-mode .social-btn {
+    background: #333;
+    border-color: #666;
+    color: #eee;
+  }
+  body.dark-mode .social-btn:hover {
+    border-color: #f88f00;
+  }
+  body.dark-mode .divider {
+    color: #aaa;
+  }
+  body.dark-mode .text-overlay {
+    background: rgba(0,0,0,0.65);
+    text-shadow: 0 0 15px #ffab00;
+  }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+  <h2>CarsOnScroll</h2>
+  <div class="nav-links">
+    <a href="#homeSection">Home</a>
+    <a href="#buyingSection">Buy Cars</a>
+    <a href="#loginSection">Login</a>
+    <a href="contact.html">Contact us</a>
+
+    <button id="darkToggleBtn" aria-pressed="false" role="switch" aria-label="Toggle dark mode">Dark Mode</button>
+  </div>
+</nav>
+
+<main>
+<!-- Home Sections with Images -->
+<section id="homeSection">
+  <section class="parallax" style="background-image: url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1600');">
+    <div class="text-overlay">Speed. Precision. Passion.</div>
+  </section>
+  <div class="content">
+    <h2>The Art of Motion</h2>
+    <p>Every sports car tells a story — one written in speed, performance, and design. Precision-crafted aerodynamics and flawless engineering merge to create an experience unlike any other. This isn't just driving — it's art in motion.</p>
+  </div>
+  <section class="parallax" style="background-image: url('https://images.unsplash.com/photo-1621135802920-133df287f89c?w=1600');">
+    <div class="text-overlay">Driven by Innovation</div>
+  </section>
+  <div class="content">
+    <h2>Masterpieces of Engineering</h2>
+    <p>Explore a lineup of exotic supercars and luxury vehicles engineered for perfection. Each model blends cutting-edge technology with sublime craftsmanship, delivering power and poise that exhilarate your senses.</p>
+  </div>
+  <section class="parallax" style="background-image: url('https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=1600');">
+    <div class="text-overlay">Experience the Muscle</div>
+  </section>
+  <div class="content">
+    <h2>Born to Dominate</h2>
+    <p>From classic muscle cars to modern powerhouses, our heritage of performance defines excellence on every road. The roar of the engine and the thrill of acceleration remind us of our unwavering pursuit of speed and style.</p>
+  </div>
+</section>
+
+<!-- Buying Cars Section -->
+<section id="buyingSection" class="buying-page">
+  <div class="buying-header" style="text-align:center; margin-bottom:2rem;">
+    <h1>Find Your Dream Car</h1>
+    <p>Explore our premium collection of sports cars and supercars</p>
+  </div>
+  <div class="cars-grid">
+  <!-- Car 1 -->
+  <div class="car-card">
+    <img src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=600" alt="Ferrari F8 Tributo" class="car-image" />
+    <div class="car-info">
+      <div class="car-brand">Ferrari</div>
+      <h3 class="car-name">F8 Tributo</h3>
+      <div class="car-specs"><span>⚡ 710 HP</span><span>🏁 211 mph</span><span>⏱️ 2.9s</span></div>
+      <div class="car-price">$280,000</div>
+    </div>
+    <a href="cars-info.html" class="buy-btn">Know More</a>
+    <a href="tryout.html" class="buy-btn" style="margin-top: 0.5rem;">Buy Now</a>
+  </div>
+
+  <!-- Car 2 -->
+  <div class="car-card">
+    <img src="https://images.unsplash.com/photo-1621135802920-133df287f89c?w=600" alt="Lamborghini Huracán EVO" class="car-image" />
+    <div class="car-info">
+      <div class="car-brand">Lamborghini</div>
+      <h3 class="car-name">Huracán EVO</h3>
+      <div class="car-specs"><span>⚡ 640 HP</span><span>🏁 202 mph</span><span>⏱️ 2.9s</span></div>
+      <div class="car-price">$261,000</div>
+    </div>
+    <a href="cars-info.html" class="buy-btn">Know More</a>
+    <a href="tryout.html" class="buy-btn" style="margin-top: 0.5rem;">Buy Now</a>
+  </div>
+
+  <!-- Car 3 -->
+  <div class="car-card">
+    <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600" alt="Porsche 911 Turbo S" class="car-image" />
+    <div class="car-info">
+      <div class="car-brand">Porsche</div>
+      <h3 class="car-name">911 Turbo S</h3>
+      <div class="car-specs"><span>⚡ 640 HP</span><span>🏁 205 mph</span><span>⏱️ 2.6s</span></div>
+      <div class="car-price">$207,000</div>
+    </div>
+    <a href="cars-info.html" class="buy-btn">Know More</a>
+    <a href="tryout.html" class="buy-btn" style="margin-top: 0.5rem;">Buy Now</a>
+  </div>
+
+  <!-- Car 4 -->
+  <div class="car-card">
+    <img src="https://images.unsplash.com/photo-1621615578530-cbf3c443165f?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687" alt="McLaren 720S" class="car-image" />
+    <div class="car-info">
+      <div class="car-brand">McLaren</div>
+      <h3 class="car-name">720S</h3>
+      <div class="car-specs"><span>⚡ 710 HP</span><span>🏁 212 mph</span><span>⏱️ 2.8s</span></div>
+      <div class="car-price">$299,000</div>
+    </div>
+    <a href="cars-info.html" class="buy-btn">Know More</a>
+    <a href="tryout.html" class="buy-btn" style="margin-top: 0.5rem;">Buy Now</a>
+  </div>
+
+  <!-- Car 5 -->
+  <div class="car-card">
+    <img src="https://images.unsplash.com/photo-1600712242805-5f78671b24da?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=764" alt="Bugatti Chiron" class="car-image" />
+    <div class="car-info">
+      <div class="car-brand">Bugatti</div>
+      <h3 class="car-name">Chiron</h3>
+      <div class="car-specs"><span>⚡ 1500 HP</span><span>🏁 261 mph</span><span>⏱️ 2.3s</span></div>
+      <div class="car-price">$3,000,000</div>
+    </div>
+    <a href="cars-info.html" class="buy-btn">Know More</a>
+    <a href="tryout.html" class="buy-btn" style="margin-top: 0.5rem;">Buy Now</a>
+  </div>
+
+  <!-- Car 6 -->
+  <div class="car-card">
+    <img src="https://images.unsplash.com/photo-1761668573021-bee02c23b9a8?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170" alt="Aston Martin DB11" class="car-image" />
+    <div class="car-info">
+      <div class="car-brand">Aston Martin</div>
+      <h3 class="car-name">DB11</h3>
+      <div class="car-specs"><span>⚡ 630 HP</span><span>🏁 208 mph</span><span>⏱️ 3.7s</span></div>
+      <div class="car-price">$220,000</div>
+    </div>
+    <a href="cars-info.html" class="buy-btn">Know More</a>
+    <a href="tryout.html" class="buy-btn" style="margin-top: 0.5rem;">Buy Now</a>
+  </div>
+
+  <!-- Car 7 -->
+  <div class="car-card">
+    <img src="https://images.unsplash.com/photo-1609964729554-a02fb2a04830?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=765" alt="Nissan GT-R Nismo" class="car-image" />
+    <div class="car-info">
+      <div class="car-brand">Nissan</div>
+      <h3 class="car-name">GT-R Nismo</h3>
+      <div class="car-specs"><span>⚡ 600 HP</span><span>🏁 205 mph</span><span>⏱️ 2.7s</span></div>
+      <div class="car-price">$210,000</div>
+    </div>
+    <a href="cars-info.html" class="buy-btn">Know More</a>
+    <a href="tryout.html" class="buy-btn" style="margin-top: 0.5rem;">Buy Now</a>
+  </div>
+
+  <!-- Car 8 -->
+  <div class="car-card">
+    <img src="https://images.unsplash.com/photo-1627440829335-b42fba2a15dd?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687" alt="Mercedes AMG GT R" class="car-image" />
+    <div class="car-info">
+      <div class="car-brand">Mercedes</div>
+      <h3 class="car-name">AMG GT R</h3>
+      <div class="car-specs"><span>⚡ 577 HP</span><span>🏁 198 mph</span><span>⏱️ 3.5s</span></div>
+      <div class="car-price">$163,000</div>
+    </div>
+    <a href="cars-info.html" class="buy-btn">Know More</a>
+    <a href="tryout.html" class="buy-btn" style="margin-top: 0.5rem;">Buy Now</a>
+  </div>
+
+  <!-- Car 9 -->
+  <div class="car-card">
+    <img src="https://images.unsplash.com/photo-1617255148661-afb26d4f933e?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170" alt="Chevrolet Corvette C8" class="car-image" />
+    <div class="car-info">
+      <div class="car-brand">Chevrolet</div>
+      <h3 class="car-name">Corvette C8</h3>
+      <div class="car-specs"><span>⚡ 495 HP</span><span>🏁 194 mph</span><span>⏱️ 2.9s</span></div>
+      <div class="car-price">$69,000</div>
+    </div>
+    <a href="cars-info.html" class="buy-btn">Know More</a>
+    <a href="tryout.html" class="buy-btn" style="margin-top: 0.5rem;">Buy Now</a>
+  </div>
+</div>
+
+</section>
+
+<!-- Login Section -->
+<section id="loginSection" class="login-container" style="padding: 5rem 2rem;">
+  <div class="login-box">
+    <h2>Welcome Back</h2>
+    <p>Login to access your account</p>
+    <form id="loginForm" novalidate>
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" placeholder="Enter your email" required />
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Enter your password" required />
+      </div>
+      <button type="submit" class="login-btn">Login</button>
+    </form>
+    <div class="divider">— or continue with —</div>
+    <div class="social-login">
+      <button class="social-btn">Google</button>
+      <button class="social-btn">Facebook</button>
+    </div>
+    <div class="signup-link" style="text-align:center; margin-top:1.5rem; color:#666;">
+      Don't have an account? <a href="#" onclick="alert('Sign up coming soon!')">Sign Up</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- Back to Top Button -->
+<a href="#top" id="toTopBtn" aria-label="Back to top" style="position:fixed; bottom:40px; right:40px; background:#f88f00; color:#fff; padding:1rem 1.2rem; border-radius:10px; font-size:1.5rem; text-decoration:none; display:inline-block; text-align:center;">&uarr;</a>
+
+<script>
+  // Dark mode toggle
+  const darkToggleBtn = document.getElementById('darkToggleBtn');
+  const body = document.body;
+
+  if(localStorage.getItem('darkMode') === 'enabled'){
+    body.classList.add('dark-mode');
+    darkToggleBtn.innerText = 'Light Mode';
+    darkToggleBtn.setAttribute('aria-pressed', 'true');
+  }
+
+  darkToggleBtn.addEventListener('click', () => {
+    body.classList.toggle('dark-mode');
+    const isDark = body.classList.contains('dark-mode');
+    if(isDark){
+      darkToggleBtn.innerText = 'Light Mode';
+      darkToggleBtn.setAttribute('aria-pressed', 'true');
+      localStorage.setItem('darkMode', 'enabled');
+    } else {
+      darkToggleBtn.innerText = 'Dark Mode';
+      darkToggleBtn.setAttribute('aria-pressed', 'false');
+      localStorage.setItem('darkMode', 'disabled');
+    }
+  });
+  document.getElementById("loginForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value.trim();
+
+  if (!email || !password) {
+    alert("⚠️ Please fill in both fields.");
+    return;
+  }
+
+  try {
+    const res = await fetch("http://localhost:5000/api/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    });
+
+    const data = await res.json();
+    if (res.ok) {
+      alert("✅ Login details saved successfully!");
+      document.getElementById("loginForm").reset();
+    } else {
+      alert("❌ Error: " + data.message);
+    }
+  } catch (err) {
+    alert("❌ Something went wrong. Check if backend (port 5000) is running.");
+    console.error(err);
+  }
+});
+
+  
+</script>
+
+</body>
+</html>

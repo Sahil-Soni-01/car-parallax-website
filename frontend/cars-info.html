@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Car Collection - CarsOnScroll</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: #f4f4f4;
+    color: #ffffff;
+    min-height: 100vh;
+    padding-top: 70px;
+    transition: background 0.6s, color 0.6s;
+  }
+  nav {
+    position: fixed; top: 0; left: 0; width: 100%;
+    background: rgba(0,0,0,0.75);
+    backdrop-filter: blur(5px);
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1rem 3rem;
+    z-index: 9999;
+  }
+  nav h2 {
+    color: #f88f00;
+    font-size: 2rem;
+    letter-spacing: 2px;
+  }
+  nav .nav-links {
+    display: flex;
+    align-items: center;
+  }
+  nav .nav-links a {
+    color: white; text-decoration: none;
+    margin: 0 1rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+    position: relative;
+    transition: color 0.6s;
+  }
+  nav .nav-links a::after {
+    content: "";
+    position: absolute;
+    width: 0; height: 2px; bottom: -4px; left: 0;
+    background: #f88f00;
+    transition: width 0.3s;
+  }
+  nav .nav-links a:hover::after { width: 100%; }
+  #darkToggleBtn {
+    background-color: #f88f00;
+    color: white;
+    border: none;
+    padding: 0.5rem 1.2rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    user-select: none;
+    transition: background-color 0.3s;
+  }
+  #darkToggleBtn:hover { background-color: #ffaa33; }
+  header {
+    max-width: 900px;
+    margin: 2rem auto;
+    text-align: center;
+  }
+  header h1 {
+    font-size: 3rem;
+    color: #f88f00;
+    margin-bottom: 0.5rem;
+  }
+  header p {
+    font-size: 1.3rem;
+    color: #555;
+  }
+  main {
+    max-width: 900px;
+    margin: 1rem auto 3rem;
+    padding: 0 1rem;
+  }
+  article {
+    background: #fff;
+    border-radius: 15px;
+    padding: 1.8rem 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: background 0.6s, color 0.6s, transform 0.3s;
+  }
+  article:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+  }
+  article h2 {
+    color: #f88f00;
+    margin-bottom: 0.3rem;
+    font-size: 1.6rem;
+  }
+  article p, article ul {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #333;
+  }
+  article ul { padding-left: 1.2rem; margin-top: 0.5rem; }
+  article ul li { margin-bottom: 0.4rem; }
+  .divider {
+    width: 60%;
+    height: 2px;
+    background: linear-gradient(to right, #f88f00, transparent);
+    margin: 2rem auto;
+  }
+
+  /* Dark Mode */
+  body.dark-mode {
+    background: #121212;
+    color: #eee;
+  }
+  body.dark-mode header h1 { color: #f88f00; }
+  body.dark-mode header p { color: #ccc; }
+  body.dark-mode article {
+    background: #1e1e1e;
+    color: #ddd;
+    box-shadow: 0 10px 30px rgba(248, 143, 0, 0.25);
+  }
+  body.dark-mode article h2 { color: #f88f00; }
+  body.dark-mode article p, body.dark-mode article ul { color: #ccc; }
+</style>
+</head>
+
+<body>
+<nav>
+  <h2>CarsOnScroll</h2>
+  <div class="nav-links">
+    <a href="project-last-complete.html">Home</a>
+    <a href="tryout.html">Buy Cars</a>
+    <button id="darkToggleBtn" aria-pressed="false" role="switch" aria-label="Toggle dark mode">Dark Mode</button>
+  </div>
+</nav>
+
+<header id="header">
+  <h1>Car Collection Details</h1>
+  <p>Explore performance, design, and innovation in the world’s finest cars</p>
+</header>
+<main>
+  <article>
+    <h2>Ferrari F8 Tributo</h2>
+    <p>Price: Approx. $280,000</p>
+    <ul>
+      <li>Engine: 3.9L Twin-turbo V8</li>
+      <li>Power: 710 HP</li>
+      <li>Torque: 568 lb-ft</li>
+      <li>Drivetrain: Rear-Wheel Drive (RWD)</li>
+      <li>Transmission: 7-speed dual-clutch automatic</li>
+      <li>0–60 mph: 2.9 seconds</li>
+      <li>Top Speed: 211 mph</li>
+      <li>Highlights: Aerodynamic precision, sharp design, and unmatched Ferrari emotion.</li>
+    </ul>
+  </article>
+
+  <article>
+    <h2>Lamborghini Huracán EVO</h2>
+    <p>Price: Approx. $261,000</p>
+    <ul>
+      <li>Engine: 5.2L V10</li>
+      <li>Power: 640 HP</li>
+      <li>Torque: 443 lb-ft</li>
+      <li>Drivetrain: All-Wheel Drive (AWD)</li>
+      <li>Transmission: 7-speed dual-clutch automatic</li>
+      <li>0–60 mph: 2.9 seconds</li>
+      <li>Top Speed: 202 mph</li>
+      <li>Highlights: Italian aggressiveness, responsive handling, dynamic performance mode.</li>
+    </ul>
+  </article>
+
+  <article>
+    <h2>Porsche 911 Turbo S</h2>
+    <p>Price: About $207,000</p>
+    <ul>
+      <li>Engine: 3.8L Twin-turbo Flat-6</li>
+      <li>Power: 640 HP</li>
+      <li>Torque: 590 lb-ft</li>
+      <li>Drivetrain: AWD</li>
+      <li>Transmission: 8-speed PDK Automatic</li>
+      <li>0–60 mph: 2.6 seconds</li>
+      <li>Top Speed: 205 mph</li>
+      <li>Highlights: Precision engineering and unmatched daily usability in a supercar form.</li>
+    </ul>
+  </article>
+
+  <article>
+    <h2>McLaren 720S</h2>
+    <p>Price: Around $305,000</p>
+    <ul>
+      <li>Engine: 4.0L Twin-turbocharged V8</li>
+      <li>Power: 710 HP</li>
+      <li>Torque: 568 lb-ft</li>
+      <li>Drivetrain: RWD</li>
+      <li>Transmission: 7-speed dual-clutch automatic</li>
+      <li>0–60 mph: 2.8 seconds</li>
+      <li>Top Speed: 212 mph</li>
+      <li>Highlights: Lightweight carbon-fiber structure and futuristic cockpit.</li>
+    </ul>
+  </article>
+
+  <article>
+    <h2>Bugatti Chiron</h2>
+    <p>Price: $3,000,000</p>
+    <ul>
+      <li>Engine: 8.0L Quad-turbocharged W16</li>
+      <li>Power: 1,500 HP</li>
+      <li>Torque: 1,180 lb-ft</li>
+      <li>Drivetrain: AWD</li>
+      <li>Transmission: 7-speed dual-clutch automatic</li>
+      <li>0–60 mph: 2.3 seconds</li>
+      <li>Top Speed: 261 mph</li>
+      <li>Highlights: The ultimate hypercar with unmatched engineering and exclusivity.</li>
+    </ul>
+  </article>
+
+  <article>
+    <h2>Aston Martin DB11</h2>
+    <p>Price: Approx. $220,000</p>
+    <ul>
+      <li>Engine: 5.2L Twin-turbo V12</li>
+      <li>Power: 630 HP</li>
+      <li>Torque: 516 lb-ft</li>
+      <li>Drivetrain: Rear-Wheel Drive (RWD)</li>
+      <li>Transmission: 8-speed automatic</li>
+      <li>0–60 mph: 3.7 seconds</li>
+      <li>Top Speed: 208 mph</li>
+      <li>Highlights: Combines British elegance with V12 performance and modern grand-touring comfort.</li>
+    </ul>
+  </article>
+
+  <article>
+    <h2>Nissan GT-R Nismo</h2>
+    <p>Price: Approx. $210,000</p>
+    <ul>
+      <li>Engine: 3.8L Twin-turbo V6</li>
+      <li>Power: 600 HP</li>
+      <li>Torque: 481 lb-ft</li>
+      <li>Drivetrain: All-Wheel Drive (AWD)</li>
+      <li>Transmission: 6-speed dual-clutch automatic</li>
+      <li>0–60 mph: 2.7 seconds</li>
+      <li>Top Speed: 205 mph</li>
+      <li>Highlights: Iconic “Godzilla” supercar — brutal acceleration with advanced handling technology.</li>
+    </ul>
+  </article>
+
+  <article>
+    <h2>Mercedes-AMG GT R</h2>
+    <p>Price: Approx. $163,000</p>
+    <ul>
+      <li>Engine: 4.0L Twin-turbo V8</li>
+      <li>Power: 577 HP</li>
+      <li>Torque: 516 lb-ft</li>
+      <li>Drivetrain: Rear-Wheel Drive (RWD)</li>
+      <li>Transmission: 7-speed dual-clutch automatic</li>
+      <li>0–60 mph: 3.5 seconds</li>
+      <li>Top Speed: 198 mph</li>
+      <li>Highlights: Race-bred design with aggressive aerodynamics and track-tuned performance.</li>
+    </ul>
+  </article>
+
+  <article>
+    <h2>Chevrolet Corvette C8</h2>
+    <p>Price: Approx. $69,000</p>
+    <ul>
+      <li>Engine: 6.2L Naturally Aspirated V8</li>
+      <li>Power: 495 HP</li>
+      <li>Torque: 470 lb-ft</li>
+      <li>Drivetrain: Rear-Wheel Drive (RWD)</li>
+      <li>Transmission: 8-speed dual-clutch automatic</li>
+      <li>0–60 mph: 2.9 seconds</li>
+      <li>Top Speed: 194 mph</li>
+      <li>Highlights: Mid-engine layout offers supercar performance at an affordable price.</li>
+    </ul>
+  </article>
+</main>
+
+<script>
+  const darkToggleBtn = document.getElementById('darkToggleBtn');
+  const body = document.body;
+
+  if(localStorage.getItem('darkMode') === 'enabled'){
+    body.classList.add('dark-mode');
+    darkToggleBtn.innerText = 'Light Mode';
+    darkToggleBtn.setAttribute('aria-pressed', 'true');
+  }
+
+  darkToggleBtn.addEventListener('click', () => {
+    body.classList.toggle('dark-mode');
+    const isDark = body.classList.contains('dark-mode');
+    if(isDark){
+      darkToggleBtn.innerText = 'Light Mode';
+      darkToggleBtn.setAttribute('aria-pressed', 'true');
+      localStorage.setItem('darkMode', 'enabled');
+    } else {
+      darkToggleBtn.innerText = 'Dark Mode';
+      darkToggleBtn.setAttribute('aria-pressed', 'false');
+      localStorage.setItem('darkMode', 'disabled');
+    }
+  });
+document.querySelector("form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const carName = document.querySelector("#carName").value;
+  const buyerName = document.querySelector("#buyerName").value;
+  const phone = document.querySelector("#phone").value;
+
+  const res = await fetch("http://localhost:5000/api/buy", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ carName, buyerName, phone })
+  });
+
+  const data = await res.json();
+  alert(data.message || "Car purchase saved!");
+});
+</script>
+
+</body>
+</html>

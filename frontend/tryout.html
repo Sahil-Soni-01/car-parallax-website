@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Buy a Car Form</title>
+<style>
+  
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
+    background: #f4f4f4;
+    color: #222;
+    min-height: 100vh;
+    padding-top: 70px;
+    transition: background 0.6s, color 0.6s;
+  }
+  nav {
+    position: fixed; top: 0; left: 0; width: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(5px);
+    display: flex; justify-content: space-between;
+    padding: 1rem 3rem; z-index: 9999; align-items: center;
+  }
+  nav h2 {
+    color: #f88f00;
+    font-size: 2rem;
+    letter-spacing: 2px;
+  }
+  nav .nav-links {
+    display: flex; align-items: center;
+  }
+  nav a {
+    color: white; text-decoration: none;
+    margin: 0 1rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+    position: relative;
+  }
+  nav a::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background: #f88f00;
+    transition: width 0.3s;
+  }
+  nav a:hover::after {
+    width: 100%;
+  }
+  #themeToggle {
+    background-color: #f88f00;
+    color: #fff;
+    padding: 0.5rem 1.2rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    border: none;
+    transition: background-color 0.3s;
+  }
+  #themeToggle:hover {
+    background-color: #ffaa33;
+  }
+
+  main {
+    max-width: 600px;
+    margin: 4rem auto 6rem;
+    background: #fff;
+    padding: 3rem;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+    transition: background 0.6s, color 0.6s;
+  }
+
+  main h1 {
+    color: #f88f00;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #333;
+    transition: color 0.6s;
+  }
+  input, select {
+    width: 100%;
+    padding: 0.9rem;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    font-size: 1rem;
+    background: #f9f9f9;
+    margin-bottom: 1.5rem;
+    transition: background 0.6s, border-color 0.6s, color 0.6s;
+  }
+  input:focus, select:focus {
+    border-color: #f88f00;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(248,143,0,0.1);
+  }
+  .checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    margin-bottom: 1.5rem;
+  }
+  .checkbox-group label {
+    margin: 0;
+    font-weight: normal;
+    color: #333;
+  }
+  button.submit-btn {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, #f88f00 0%, #ff6b00 100%);
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  button.submit-btn:hover {
+    background: #ff6b00;
+  }
+
+  /* Dark mode */
+  body.dark-mode {
+    background: #121212;
+    color: #eee;
+  }
+  body.dark-mode main {
+    background: #1e1e1e;
+    box-shadow: 0 20px 60px rgba(248,143,0,0.3);
+  }
+  body.dark-mode label, body.dark-mode .checkbox-group label {
+    color: #eee;
+  }
+  body.dark-mode input, body.dark-mode select {
+    background: #333;
+    border-color: #666;
+    color: #eee;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <h2>CarsOnScroll</h2>
+  <div class="nav-links">
+    <a href="project-last-complete.html">Home</a>
+    <a href="cars-info.html">Buy Cars</a>
+    <button id="themeToggle" aria-pressed="false" role="switch" aria-label="Toggle dark mode">Dark Mode</button>
+  </div>
+</nav>
+
+<main>
+  <h1>Buy Your Dream Car</h1>
+  <form id="buyCarForm" novalidate>
+    <label for="fullName">Full Name</label>
+    <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required />
+
+    <label for="email">Email Address</label>
+    <input type="email" id="email" name="email" placeholder="Enter your email" required />
+
+    <label for="phone">Phone Number</label>
+    <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required pattern="^\+?\d{7,15}$" />
+
+   <label for="carModel">Select Car Model</label>
+  <select id="carModel" name="carModel" required>
+  <option value="" disabled selected>Select a car model</option>
+  <option value="Ferrari F8 Tributo">Ferrari F8 Tributo</option>
+  <option value="Lamborghini Huracán EVO">Lamborghini Huracán EVO</option>
+  <option value="Porsche 911 Turbo S">Porsche 911 Turbo S</option>
+  <option value="Bugatti Chiron Super Sport">Bugatti Chiron Super Sport</option>
+  <option value="McLaren 720S">McLaren 720S</option>
+  <option value="Tesla Model S Plaid">Tesla Model S Plaid</option>
+  <option value="Aston Martin DBS Superleggera">Aston Martin DBS Superleggera</option>
+  <option value="Nissan GT-R Nismo">Nissan GT-R Nismo</option>
+  <option value="Mercedes-AMG GT Black Series">Mercedes-AMG GT Black Series</option>
+  <option value="Chevrolet Corvette Z06">Chevrolet Corvette Z06</option>
+</select>
+
+
+    <div class="checkbox-group">
+      <input type="checkbox" id="agreeTerms" name="agreeTerms" required />
+      <label for="agreeTerms">I agree to the terms and conditions</label>
+    </div>
+
+    <button type="submit" class="submit-btn">Submit Order</button>
+  </form>
+</main>
+
+<script>
+  // Dark mode toggle logic
+  const themeBtn = document.getElementById('themeToggle');
+  const body = document.body;
+
+  if(localStorage.getItem('darkMode') === 'enabled'){
+    body.classList.add('dark-mode');
+    themeBtn.innerText = 'Light Mode';
+    themeBtn.setAttribute('aria-pressed', 'true');
+  }
+
+  themeBtn.addEventListener('click', () => {
+    body.classList.toggle('dark-mode');
+    const isDark = body.classList.contains('dark-mode');
+    if(isDark){
+      themeBtn.innerText = 'Light Mode';
+      themeBtn.setAttribute('aria-pressed', 'true');
+      localStorage.setItem('darkMode', 'enabled');
+    } else{
+      themeBtn.innerText = 'Dark Mode';
+      themeBtn.setAttribute('aria-pressed', 'false');
+      localStorage.setItem('darkMode', 'disabled');
+    }
+  });
+
+  
+document.querySelector("form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const username = document.querySelector("#username").value;
+  const password = document.querySelector("#password").value;
+
+  const res = await fetch("http://localhost:5000/api/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ username, password })
+  });
+
+  const data = await res.json();
+  alert(data.message || "Login saved!");
+});
+document.getElementById("buyCarForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const fullName = document.getElementById("fullName").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const phone = document.getElementById("phone").value.trim();
+  const carModel = document.getElementById("carModel").value;
+  const agreeTerms = document.getElementById("agreeTerms").checked;
+
+  if (!fullName || !email || !phone || !carModel || !agreeTerms) {
+    alert("⚠️ Please fill all fields and agree to terms.");
+    return;
+  }
+
+  try {
+    const res = await fetch("http://localhost:5000/api/buy", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ fullName, email, phone, carModel }),
+    });
+
+    const data = await res.json();
+    if (res.ok) {
+      alert("✅ Order placed successfully!");
+      document.getElementById("buyCarForm").reset();
+    } else {
+      alert("❌ Error: " + data.message);
+    }
+  } catch (err) {
+    alert("❌ Something went wrong. Check backend connection.");
+    console.error(err);
+  }
+});
+</script>
+
+</body>
+</html>

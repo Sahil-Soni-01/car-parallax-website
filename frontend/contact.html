@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Contact Us | CarsOnScroll</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: #f4f4f4;
+    color: #222;
+    min-height: 100vh;
+    padding-top: 80px;
+    transition: background 0.6s, color 0.6s;
+  }
+  nav {
+    position: fixed; top: 0; left: 0; width: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(6px);
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1rem 3rem; z-index: 999;
+  }
+  nav h2 { color: #f88f00; font-size: 2rem; letter-spacing: 1px; }
+  nav a {
+    color: white; text-decoration: none; margin: 0 1rem;
+    font-weight: 600; font-size: 1.1rem; position: relative;
+  }
+  nav a::after {
+    content: ""; position: absolute; width: 0; height: 2px;
+    bottom: -4px; left: 0; background: #f88f00; transition: width 0.3s;
+  }
+  nav a:hover::after { width: 100%; }
+  #darkToggleBtn {
+    background-color: #f88f00; color: #fff; padding: 0.5rem 1rem;
+    border-radius: 6px; border: none; cursor: pointer;
+    font-weight: 600; transition: background 0.3s;
+  }
+  #darkToggleBtn:hover { background-color: #ffaa33; }
+
+  .contact-container {
+    max-width: 900px;
+    margin: 3rem auto;
+    background: #fff;
+    padding: 3rem;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: background 0.6s, color 0.6s;
+  }
+  .contact-container h1 {
+    color: #f88f00;
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+  .contact-container p {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 2.5rem;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    text-align: left;
+  }
+  label {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.4rem;
+  }
+  input, textarea {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 10px;
+    border: 2px solid #ddd;
+    font-size: 1rem;
+    background: #f9f9f9;
+    transition: border-color 0.3s, background 0.3s;
+  }
+  input:focus, textarea:focus {
+    outline: none;
+    border-color: #f88f00;
+    box-shadow: 0 0 0 3px rgba(248,143,0,0.15);
+  }
+  textarea {
+    resize: vertical;
+    min-height: 150px;
+  }
+  button {
+    align-self: center;
+    background: linear-gradient(135deg, #f88f00 0%, #ff6b00 100%);
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 1rem 2.5rem;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  button:hover { background: #ff6b00; }
+
+  /* Dark Mode */
+  body.dark-mode { background: #121212; color: #eee; }
+  body.dark-mode nav { background: rgba(18,18,18,0.85); }
+  body.dark-mode nav h2 { color: #ffb347; }
+  body.dark-mode nav a { color: #ddd; }
+  body.dark-mode .contact-container {
+    background: #1e1e1e;
+    color: #eee;
+    box-shadow: 0 15px 40px rgba(255,136,0,0.3);
+  }
+  body.dark-mode input, body.dark-mode textarea {
+    background: #333;
+    border-color: #666;
+    color: #eee;
+  }
+  body.dark-mode label { color: #eee; }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+  <h2>CarsOnScroll</h2>
+  <div class="nav-links">
+    <a href="project-last-complete.html">Home</a>
+    <a href="project-last-complete.html#buyingSection">Buy Cars</a>
+    <a href="project-last-complete.html#loginSection">Login</a>
+    <a href="project-last-complete.html">Contact Us</a>
+    <button id="darkToggleBtn">Dark Mode</button>
+  </div>
+</nav>
+
+<!-- Contact Section -->
+<section class="contact-container">
+  <h1>Contact Us</h1>
+  <p>Have questions or feedback? We'd love to hear from you. Fill out the form below, and we'll get back to you shortly.</p>
+
+  <!-- <form id="contactForm" action="YOUR_FORMSPREE_URL_HERE" method="POST">
+    <div>
+      <label for="name">Full Name</label>
+      <input type="text" id="name" name="name" placeholder="Enter your full name" required />
+    </div>
+    <div>
+      <label for="email">Email Address</label>
+      <input type="email" id="email" name="_replyto" placeholder="Enter your email" required />
+    </div>
+    <div>
+      <label for="subject">Subject</label>
+      <input type="text" id="subject" name="subject" placeholder="Enter subject" required />
+    </div>
+    <div>
+      <label for="message">Message</label>
+      <textarea id="message" name="message" placeholder="Write your message..." required></textarea>
+    </div>
+    <button type="submit">Send Message</button>
+  </form> -->
+  <form id="contactForm">
+  <div>
+    <label for="name">Full Name</label>
+    <input type="text" id="name" name="name" placeholder="Enter your full name" required />
+  </div>
+  <div>
+    <label for="email">Email Address</label>
+    <input type="email" id="email" name="email" placeholder="Enter your email" required />
+  </div>
+  <div>
+    <label for="subject">Subject</label>
+    <input type="text" id="subject" name="subject" placeholder="Enter subject" required />
+  </div>
+  <div>
+    <label for="message">Message</label>
+    <textarea id="message" name="message" placeholder="Write your message..." required></textarea>
+  </div>
+  <button type="submit">Send Message</button>
+</form>
+</section>
+
+<script>
+  // Dark Mode toggle (same as index.html)
+  const darkToggleBtn = document.getElementById('darkToggleBtn');
+  const body = document.body;
+  if(localStorage.getItem('darkMode') === 'enabled'){
+    body.classList.add('dark-mode');
+    darkToggleBtn.innerText = 'Light Mode';
+  }
+  darkToggleBtn.addEventListener('click', () => {
+    body.classList.toggle('dark-mode');
+    const isDark = body.classList.contains('dark-mode');
+    if(isDark){
+      darkToggleBtn.innerText = 'Light Mode';
+      localStorage.setItem('darkMode', 'enabled');
+    } else {
+      darkToggleBtn.innerText = 'Dark Mode';
+      localStorage.setItem('darkMode', 'disabled');
+    }
+  });
+
+//   // Optional success message
+//   const form = document.getElementById('contactForm');
+//   form.addEventListener('submit', function(e){
+//     e.preventDefault();
+//     fetch(form.action, {
+//       method: 'POST',
+//       body: new FormData(form),
+//       headers: { 'Accept': 'application/json' }
+//     }).then(response => {
+//       if (response.ok) {
+//         alert('✅ Message sent successfully!');
+//         form.reset();
+//       } else {
+//         alert('❌ Something went wrong. Please try again.');
+//       }
+//     }).catch(() => alert('❌ Failed to send message.'));
+//   });
+// document.querySelector("form").addEventListener("submit", async (e) => {
+//   e.preventDefault();
+
+//   const name = document.querySelector("#name").value;
+//   const email = document.querySelector("#email").value;
+//   const message = document.querySelector("#message").value;
+
+//   const res = await fetch("http://localhost:5000/api/contact", {
+//     method: "POST",
+//     headers: { "Content-Type": "application/json" },
+//     body: JSON.stringify({ name, email, message })
+//   });
+
+//   const data = await res.json();
+//   alert(data.message || "Message sent!");
+// });
+const form = document.getElementById("contactForm");
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+  const subject = document.getElementById("subject").value;
+  const message = document.getElementById("message").value;
+
+  try {
+    const res = await fetch("http://localhost:5000/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, email, subject, message }),
+    });
+
+    const data = await res.json();
+    if (res.ok) {
+      alert(data.message);
+      form.reset();
+    } else {
+      alert("❌ Something went wrong: " + data.message);
+    }
+  } catch (error) {
+    alert("❌ Server not responding. Make sure backend (port 5000) is running.");
+  }
+});
+</script>
+
+</body>
+</html>
